@@ -1,0 +1,48 @@
+body {
+    background: linear-gradient(120deg, #6689c9, #c52f8b);
+    color:#18181b;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.5rem;
+    text-align: center;
+    height: 100%;
+}
+#form {
+    width: 80dvw;
+    height: 100dvh;
+    margin: auto;
+    padding: 50px;
+    border-radius: 5px;
+}
+fieldset {
+    background-color: #adadad5a;
+    border: 1px solid rgba(186, 206, 186, 0.211);
+    border-radius: 5px;
+    padding-bottom: 20px;
+}
+input {
+    width: 90%;
+    position: relative;
+    padding: 10px;
+    border-radius: 3px;
+    margin: 10px 0;
+}
+button {
+    background-color: #6689c9;
+    width: 90%;
+    border-radius: 50px;
+    padding: 10px 0;
+    margin: 20px 0;
+}
+a {
+    text-decoration: none;
+    color:#18181b;  
+}
+.return {
+    transition: transform 0.3s ease-out;
+    font-size: 1rem;
+    margin-top: -15px;
+}
+.return:hover , a:hover{
+    transform: translateY(10px);
+    color: #6689c9;
+}
