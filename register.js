@@ -1,60 +1,69 @@
-const username = document.querySelector("#username");
-const password = document.querySelector("#password");
-const confirmPassword = document.querySelector("#cpassword");
-const error = document.querySelector("#error");
-const usernameExists = false;
-const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
-const visibilityToggle = document.getElementById("passwordVisibilityToggle");
+document.addEventListener("DOMContentLoaded", function() {
+    const username = document.querySelector("#username");
+    const password = document.querySelector("#cpassword1");
+    const confirmPassword = document.querySelector("#cpassword2");
+    const error = document.querySelector("#error");
+    const usernameExists = false;
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+    const visibilityToggle1 = document.getElementById("passwordVisibilityToggle1");
+    const visibilityToggle2 = document.getElementById("passwordVisibilityToggle2");
 
-visibilityToggle.addEventListener("click", function() {
-    if (password.type === "password") {
-        password.type = "text";
-        visibilityToggle.classList.remove("fa-eye-slash");
-        visibilityToggle.classList.add("fa-eye");
-    } else {
-        password.type = "password";
-        visibilityToggle.classList.remove("fa-eye");
-        visibilityToggle.classList.add("fa-eye-slash");
-    }
-});
+    visibilityToggle1.addEventListener("click", function() {
+        if (password.type === "password") {
+            password.type = "text";
+            visibilityToggle1.classList.remove("fa-eye-slash");
+            visibilityToggle1.classList.add("fa-eye");
+        } else {
+            password.type = "password";
+            visibilityToggle1.classList.remove("fa-eye");
+            visibilityToggle1.classList.add("fa-eye-slash");
+        }
+    });
 
+    visibilityToggle2.addEventListener("click", function() {
+        if (confirmPassword.type === "password") {
+            confirmPassword.type = "text";
+            visibilityToggle2.classList.remove("fa-eye-slash");
+            visibilityToggle2.classList.add("fa-eye");
+        } else {
+            confirmPassword.type = "password";
+            visibilityToggle2.classList.remove("fa-eye");
+            visibilityToggle2.classList.add("fa-eye-slash");
+        }
+    });
 
-document.forms["registerForm"].addEventListener("submit", function(e) {
+    document.getElementById("registerForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+        error.innerHTML = ""; // Clear error message
 
-    var inputs = this;
-
-    for (let i = 0; i < inputs.length; i++) {
-        if (!inputs[i].value) {
-            error.innerHTML = "username or password are not correct!";
+        if (!username.value || !password.value || !confirmPassword.value) {
+            error.innerHTML = "Username or password are not correct!";
             username.value = '';
             password.value = '';
             confirmPassword.value = '';
-            e.preventDefault();
             return;
         }
-    }
 
-    if (usernameExists) {
-        error.innerHTML = "Username already exists.";
-        username.value = '';
-        password.value = '';
-        confirmPassword.value = '';
-        return;
-    }
-    else if (!passwordRegex.test(password.value)){
-        error.innerHTML = "Your password must be at least 8 characters long and contain at least one letter, one digit, and one special character (!@#$%^&*).";
-        password.value = '';
-        confirmPassword.value = '';
-        e.preventDefault();
-        return;
-    }
-    else if (password.value !== confirmPassword.value) {
-        error.innerHTML = "Passwords do not match.";
-        confirmPassword.value = '';
-        e.preventDefault();
-        return;
-    }
-    else {
+        if (usernameExists) {
+            error.innerHTML = "Username already exists.";
+            username.value = '';
+            password.value = '';
+            confirmPassword.value = '';
+            return;
+        }
+
+        if (!passwordRegex.test(password.value)) {
+            error.innerHTML = "Your password must be at least 8 characters long and contain at least one letter, one digit, and one special character (!@#$%^&*).";
+            password.value = '';
+            confirmPassword.value = '';
+            return;
+        }
+
+        if (password.value !== confirmPassword.value) {
+            error.innerHTML = "Passwords do not match.";
+            confirmPassword.value = '';
+            return;
+        }
         alert('Register form received successfully');
-    }
-})
+    });
+});
