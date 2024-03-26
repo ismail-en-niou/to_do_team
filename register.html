@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/0f04a079e2.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="register.css">
     <title>Register</title>
 </head>
@@ -18,7 +19,10 @@
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password" />
+                <div class="password-input-container">
+                    <input type="password" id="cpassword" name="cpassword" required />
+                    <i id="passwordVisibilityToggle" class="show-password-icon fa fa-eye-slash" aria-hidden="true"></i>
+                </div>
             </div>
             <div class="form-group">
                 <label for="cpassword">Confirm Password:</label>

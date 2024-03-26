@@ -4,6 +4,20 @@ const confirmPassword = document.querySelector("#cpassword");
 const error = document.querySelector("#error");
 const usernameExists = false;
 const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+const visibilityToggle = document.getElementById("passwordVisibilityToggle");
+
+visibilityToggle.addEventListener("click", function() {
+    if (password.type === "password") {
+        password.type = "text";
+        visibilityToggle.classList.remove("fa-eye-slash");
+        visibilityToggle.classList.add("fa-eye");
+    } else {
+        password.type = "password";
+        visibilityToggle.classList.remove("fa-eye");
+        visibilityToggle.classList.add("fa-eye-slash");
+    }
+});
+
 
 document.forms["registerForm"].addEventListener("submit", function(e) {
 

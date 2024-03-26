@@ -43,6 +43,18 @@ input[type="text"], input[type="password"] {
     border-radius: 4px;
     box-sizing: border-box;
 }
+
+.password-input-container {
+    position: relative;
+}
+  
+.show-password-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
   
 input[type="submit"] {
     width: 100%;
