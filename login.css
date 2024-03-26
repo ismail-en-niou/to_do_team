@@ -16,7 +16,6 @@ body{
     margin-top: 35px;
 }
 .centre{
-
     width: 320px;
     padding :15px ;
     background:#fff;
@@ -24,7 +23,7 @@ body{
     border-radius: 4px;
 }
 
-.centre h2{
+.centre h1{
     color:  black;
     text-align: center;
     margin-top: -5px;
