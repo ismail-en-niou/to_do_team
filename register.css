@@ -25,6 +25,7 @@ input {
     padding: 10px;
     border-radius: 3px;
     margin: 10px 0;
+    outline: none;
 }
 button {
     background-color: #6689c9;
@@ -43,6 +44,6 @@ a {
     margin-top: -15px;
 }
 .return:hover , a:hover{
-    transform: translateY(10px);
+  
     color: #6689c9;
 }
