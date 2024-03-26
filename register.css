@@ -46,13 +46,6 @@ input[type="text"], input[type="password"] {
 
 .password-input-container {
     position: relative;
-<<<<<<< HEAD
-    padding: 10px;
-    border-radius: 3px;
-    margin: 10px 0;
-    outline: none;
-=======
->>>>>>> 19e75def49bbf84abce63609204a2fe2d9f8b8ce
 }
   
 .show-password-icon {
@@ -78,21 +71,18 @@ a {
     color: #409ad6;
 }
 
+
+#errorContainer {
+    width: 100%;
+}
+
 #error {
     text-align: center;
-    color: red;
-    padding: 10px;
-    margin-top: -10px;
+    color: rgba(255, 65, 65, 0.779);
+    word-wrap: break-word;
+    white-space: pre-wrap;
 }
-<<<<<<< HEAD
 .return:hover , a:hover{
   
     color: #6689c9;
-=======
-
-@media screen and (max-width: 350px) {
-    .container {
-       width: 200px;
-    }  
->>>>>>> 19e75def49bbf84abce63609204a2fe2d9f8b8ce
 }

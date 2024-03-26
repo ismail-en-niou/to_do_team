@@ -12,10 +12,10 @@
     <div class="container">
         <form id="registerForm">
             <h2>Register</h2>
-            <div id="error"></div>
+            
             <div class="form-group">
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="username" />
+                <input type="text" id="username" required name="username" />
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
@@ -33,8 +33,12 @@
             </div>
             <div class="form-group">
                 <input type="submit" value="Register" />
+                <div id="errorContainer">
+                    <div id="error"></div>
+                </div>                
             </div>
             <div id="login-page"><p>Already have an account?<a href="login.html">Login here</a></p></div>
+
         </form>
     </div>
     <script src="register.js"></script>
