@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", function() {
     const username = document.querySelector("#username");
-    const password = document.querySelector("#cpassword1");
-    const confirmPassword = document.querySelector("#cpassword2");
+    const password = document.querySelector("#password");
+    const confirmPassword = document.querySelector("#cpassword");
     const error = document.querySelector("#error");
-    const usernameExists = false;
+    const database = firebase.database();
     const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
     const visibilityToggle1 = document.getElementById("passwordVisibilityToggle1");
     const visibilityToggle2 = document.getElementById("passwordVisibilityToggle2");
@@ -34,8 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.getElementById("registerForm").addEventListener("submit", function(e) {
         e.preventDefault();
-        error.innerHTML = ""; // Clear error message
-
+        // check if the input are not empty
         if (!username.value || !password.value || !confirmPassword.value) {
             error.innerHTML = "Username or password are not correct!";
             username.value = '';
@@ -44,14 +43,40 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        if (usernameExists) {
-            error.innerHTML = "Username already exists.";
-            username.value = '';
-            password.value = '';
-            confirmPassword.value = '';
-            return;
-        }
+        //check if the username already exists
+        const usernameRef = database.ref('usernames').child(username);
+        usernameRef.once('value', (snapshot) => {
+            if (snapshot.exists()) {
+                error.innerHTML = "Username already exists."
+            } else {
+                // save the data in the database
+                usernameRef.set(true)
 
+                // send a req to the API
+                fetch('https://doda-o6sz.onrender.com/register', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        username,
+                        password
+                    }),
+                    headers: {
+                        'content-type': 'application/json'
+                    }
+                }).then((response) => {
+                    if (response.ok) {
+                        alert("Registration successful !");
+                        window.location.href = 'login.html';
+                    } else {
+                        throw new Error("Registration failed !")
+                    }
+                }).catch((error) => {
+                    console.error(error);
+                    alert("An error occurred during registration !")
+                })
+            }
+        })
+
+        // check if the user enter the correct password
         if (!passwordRegex.test(password.value)) {
             error.innerHTML = "Your password must be at least 8 characters long and contain at least one letter, one digit, and one special character (!@#$%^&*).";
             password.value = '';
@@ -59,11 +84,13 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
+        // check if the password and confirmpassword are the same
         if (password.value !== confirmPassword.value) {
             error.innerHTML = "Passwords do not match.";
             confirmPassword.value = '';
             return;
         }
         alert('Register form received successfully');
+        
     });
 });
