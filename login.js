@@ -4,7 +4,7 @@ let submit = document.getElementById("submit");
 let feedback = document.getElementById("feedback");
 
 submit.onclick = function(e) {
-    if (username.value.length < 1 || password.value.length < 1) {
+    if (username.length < 1 || password.length < 1) {
         feedback.textContent = "Veuillez remplir les champs demandés";
         e.preventDefault();
         feedback.style.display = "block";
@@ -27,3 +27,24 @@ usersRef.where('username', '==', username).where('password', '==', password)
     }
 }
 )
+
+fetch("https://doda-o6sz.onrender.com/login", {
+    method: 'POST',
+    headers: {
+        'Content-type': 'application/json'
+    },
+    body: JSON.stringify(data)
+})
+.then(response => {
+        if (response.statut === 1){
+            console.log("User successful log in");
+        }
+        else if (response.statut === 0){
+            console.log("Erreur")
+        }
+})          
+.catch(error => console.log(error));
+         
+
+
+
