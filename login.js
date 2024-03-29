@@ -3,6 +3,8 @@ let password = document.getElementById("password").value;
 let submit = document.getElementById("submit");
 let feedback = document.getElementById("feedback");
 
+//Cas ou l'utilisateur laisser un ou les deux champs vides
+
 submit.onclick = function(e) {
     if (username.length < 1 || password.length < 1) {
         feedback.textContent = "Veuillez remplir les champs demandés";
@@ -13,6 +15,8 @@ submit.onclick = function(e) {
         return;   
     }
 };
+
+//Verification de password et user_name
 
 const usersRef = firebase.firestore().collection('users');
 usersRef.where('username', '==', username).where('password', '==', password)
@@ -27,6 +31,8 @@ usersRef.where('username', '==', username).where('password', '==', password)
     }
 }
 )
+
+//Send request and get response
 
 fetch("https://doda-o6sz.onrender.com/login", {
     method: 'POST',
