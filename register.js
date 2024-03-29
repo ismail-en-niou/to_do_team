@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const password = document.querySelector("#password");
     const confirmPassword = document.querySelector("#cpassword");
     const error = document.querySelector("#error");
-    const database = firebase.database();
     const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
     const visibilityToggle1 = document.getElementById("passwordVisibilityToggle1");
     const visibilityToggle2 = document.getElementById("passwordVisibilityToggle2");
@@ -90,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function() {
             confirmPassword.value = '';
             return;
         }
-        alert('Register form received successfully');
-        
+
+
     });
 });
