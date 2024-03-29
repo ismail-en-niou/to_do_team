@@ -43,13 +43,14 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         //check if the username already exists
-        const usernameRef = database.ref('usernames').child(username);
-        usernameRef.once('value', (snapshot) => {
+       /* const usersRef = firebase.firestore().collection('users');
+        usersRef.once('value', (snapshot) => {
+
             if (snapshot.exists()) {
                 error.innerHTML = "Username already exists."
             } else {
                 // save the data in the database
-                usernameRef.set(true)
+                usersRef.set(true)
 
                 // send a req to the API
                 fetch('https://doda-o6sz.onrender.com/register', {
@@ -73,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     alert("An error occurred during registration !")
                 })
             }
-        })
+        }) */
 
         // check if the user enter the correct password
         if (!passwordRegex.test(password.value)) {
