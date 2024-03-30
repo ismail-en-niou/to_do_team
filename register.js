@@ -31,7 +31,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    document.getElementById("registerForm").addEventListener("submit", function(e) {
+    registerForm = document.getElementById("registerForm");
+    registerForm.addEventListener("submit", function(e) {
         e.preventDefault();
         // check if the input are not empty
         if (!username.value || !password.value || !confirmPassword.value) {
@@ -42,11 +43,12 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
+/*
         //check if the username already exists
-       /* const usersRef = firebase.firestore().collection('users');
-        usersRef.once('value', (snapshot) => {
-
-            if (snapshot.exists()) {
+        const usersRef = firebase.firestore().collection('users').where("username", "==", username).get();
+        usersRef.then((querysnapshot) => {
+        
+            if (!querysnapshot) {
                 error.innerHTML = "Username already exists."
             } else {
                 // save the data in the database
@@ -90,6 +92,48 @@ document.addEventListener("DOMContentLoaded", function() {
             confirmPassword.value = '';
             return;
         }
+
+        error.innerHTML = "";
+
+        const registerData = new FormData(registerForm);
+        //const data = Object.fromEntries(registerData);
+
+        // console.log(data);
+
+     /* fetch('https://doda-o6sz.onrender.com/register', {
+            method: 'POST',
+                body: JSON.stringify({
+                    username,
+                    password
+                }),
+                headers: {
+                    'content-type': 'application/json'
+                }
+        }).then((response) => response.json()).then(result => console.log(result)).catch(err => console.log(err))  */
+
+        fetch('https://doda-o6sz.onrender.com/register', {
+            method: 'POST',
+            body: JSON.stringify({
+                username,
+                password
+            }),
+            headers: {
+                'content-type': 'application/json'
+            }
+        }).then(async (response) => {
+            const data = await response.json();
+            const statusData = data.status;
+            const messageData = data.message;
+
+            console.log(statusData);
+
+            console.log(messageData);
+
+            //console.log(response);
+
+        }).catch(err => console.log(err))
+
+
 
 
     });
