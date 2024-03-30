@@ -51,4 +51,25 @@ button {
 input:focus, button {
     outline: 1px solid #409ad6;
 }
+ul li{
+    list-style: none;
+}
+input[type = "checkbox"]{
+    margin-left: -35px;
+    font-size: 15px;
+}
+input[type = "submit"]{
+    background-color:  #409ad6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    float: right;
+    font-size: 19px;
+}
+.tasks {
+    display: flex;
+    flex-direction: row;
+}
+
 
