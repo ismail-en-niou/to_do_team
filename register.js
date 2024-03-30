@@ -126,9 +126,14 @@ document.addEventListener("DOMContentLoaded", function() {
             const messageData = data.message;
 
             console.log(statusData);
-
             console.log(messageData);
 
+            if (data.statut == 1){
+                error.innerHTML = "Username already exists."
+            } else {
+                alert("Registration successful !");
+                window.location.href = 'login.html';
+            }
             //console.log(response);
 
         }).catch(err => console.log(err))
