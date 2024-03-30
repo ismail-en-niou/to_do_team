@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }).then(async (response) => {
             const data = await response.json();
-            const statusData = data.status;
+            const statusData = data.statut;
             const messageData = data.message;
 
             console.log(statusData);
