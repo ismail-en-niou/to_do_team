@@ -54,22 +54,51 @@ input:focus, button {
 ul li{
     list-style: none;
 }
-input[type = "checkbox"]{
-    margin-left: -35px;
-    font-size: 15px;
+input {
+    flex-direction: column; /* Disposition en colonne */
 }
-input[type = "submit"]{
-    background-color:  #409ad6;
+.tasks {
+    display: flex;
+    margin-left: -42px;
+    flex: 1;
+    word-break: break-all; /* Forcer les mots longs à se casser */
+}
+.tasks input[type="text"] {
+    flex: 1;
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.tasks input[type="submit"] {
+    background-color: red;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    float: right;
-    font-size: 19px;
+    margin-top: 4px; 
+    margin-left: auto; 
 }
-.tasks {
-    display: flex;
-    flex-direction: row;
+.tasks .delete {
+    font-size: 18px; 
+    height: 24px;
 }
+.tasks input[type="checkbox"]{
+    margin-bottom: auto;
+    margin-top: 6px;
+}
+@media  only screen and (max-width: 350px){
+    .container {
+        width: 220px;
+    }
+    .tasks .delete {
+        font-size: 16px; 
+        height: 24px;
+    }
+
+}
+
+
 
 
