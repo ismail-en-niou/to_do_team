@@ -5,8 +5,8 @@ let feedback = document.getElementById("feedback");
 
 //Cas ou l'utilisateur laisser un ou les deux champs vides
 
-submit.onclick = function(e) {
-    if (username.length < 1 || password.length < 1) {
+/*submit.onclick = function(e) {
+    if (username == ' ' || password.length == ' ') {
         feedback.textContent = "Veuillez remplir les champs demandés";
         e.preventDefault();
         feedback.style.display = "block";
@@ -14,7 +14,7 @@ submit.onclick = function(e) {
         //feedback.style.display = "none";}, 3000);
         return;   
     }
-};
+};*/
 
 //Verification de password et user_name
 
@@ -42,13 +42,14 @@ fetch("https://doda-o6sz.onrender.com/login", {
     body: JSON.stringify(data)
 })
 .then(response => {
-        if (response.statut === 1){
+        if (response.statut === 0){
             console.log("User successful log in");
+            window.location.href = 'todolist.html';
         }
-        else if (response.statut === 0){
+        else if (response.statut === 1){
             console.log("Erreur")
         }
-})          
+}).then(response => console.log(response))          
 .catch(error => console.log(error));
          
 
