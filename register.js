@@ -31,8 +31,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    registerForm = document.getElementById("registerForm");
-    registerForm.addEventListener("submit", function(e) {
+    registerForm = document.getElementById("sub");
+    registerForm.addEventListener("click", async (e)=> {
         e.preventDefault();
         // check if the input are not empty
         if (!username.value || !password.value || !confirmPassword.value) {
@@ -42,43 +42,6 @@ document.addEventListener("DOMContentLoaded", function() {
             confirmPassword.value = '';
             return;
         }
-
-/*
-        //check if the username already exists
-        const usersRef = firebase.firestore().collection('users').where("username", "==", username).get();
-        usersRef.then((querysnapshot) => {
-        
-            if (!querysnapshot) {
-                error.innerHTML = "Username already exists."
-            } else {
-                // save the data in the database
-                usersRef.set(true)
-
-                // send a req to the API
-                fetch('https://doda-o6sz.onrender.com/register', {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        username,
-                        password
-                    }),
-                    headers: {
-                        'content-type': 'application/json'
-                    }
-                }).then((response) => {
-                    if (response.ok) {
-                        alert("Registration successful !");
-                        window.location.href = 'login.html';
-                    } else {
-                        throw new Error("Registration failed !")
-                    }
-                }).catch((error) => {
-                    console.error(error);
-                    alert("An error occurred during registration !")
-                })
-            }
-        }) */
-
-        // check if the user enter the correct password
         if (!passwordRegex.test(password.value)) {
             error.innerHTML = "Your password must be at least 8 characters long and contain at least one letter, one digit, and one special character (!@#$%^&*).";
             password.value = '';
@@ -95,46 +58,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
         error.innerHTML = "";
 
-        const registerData = new FormData(registerForm);
-        //const data = Object.fromEntries(registerData);
-
-        // console.log(data);
-
-     /* fetch('https://doda-o6sz.onrender.com/register', {
+        const response = await fetch('https://doda-o6sz.onrender.com/register', {
             method: 'POST',
-                body: JSON.stringify({
-                    username,
-                    password
-                }),
-                headers: {
-                    'content-type': 'application/json'
-                }
-        }).then((response) => response.json()).then(result => console.log(result)).catch(err => console.log(err))  */
-
-        fetch('https://doda-o6sz.onrender.com/register', {
-            method: 'POST',
-            body: JSON.stringify({
-                username,
-                password
-            }),
             headers: {
-                'content-type': 'application/json'
-            }
-        }).then(async (response) => {
-            const data = await response.json();
-            const statusData = data.statut;
-            const messageData = data.message;
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ user: username.value , password: password.value })
+        });
 
-            console.log(statusData);
-
-            console.log(messageData);
-
-            //console.log(response);
-
-        }).catch(err => console.log(err))
-
+        const responseData = await response.json();
+        console.log(responseData);
 
 
 
     });
-});
+})
+
+
