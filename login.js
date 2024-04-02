@@ -5,20 +5,19 @@ let feedback = document.getElementById("feedback");
 
 //Cas ou l'utilisateur laisser un ou les deux champs vides
 
-submit.onclick = function(e) {
-    if (username.length < 1 || password.length < 1) {
-        feedback.textContent = "Veuillez remplir les champs demandés";
+/*submit.onclick = function(e) {
         e.preventDefault();
-        feedback.style.display = "block";
-        //setTimeout(() => {
-        //feedback.style.display = "none";}, 3000);
-        return;   
+        if (username.trim() === '' || password.trim() === '') {
+            feedback.textContent = "Veuillez remplir les champs demandés";
+            feedback.style.display = "block";
+            return;
+        }  
     }
-};
+*/
 
 //Verification de password et user_name
 
-const usersRef = firebase.firestore().collection('users');
+/*const usersRef = firebase.firestore().collection('users');
 usersRef.where('username', '==', username).where('password', '==', password)
 .get()
 .then((querySnapshot) => { 
@@ -31,8 +30,10 @@ usersRef.where('username', '==', username).where('password', '==', password)
     }
 }
 )
-
+*/
 //Send request and get response
+
+const data = { username: username, password: password };
 
 fetch("https://doda-o6sz.onrender.com/login", {
     method: 'POST',
@@ -42,15 +43,14 @@ fetch("https://doda-o6sz.onrender.com/login", {
     body: JSON.stringify(data)
 })
 .then(response => {
-        if (response.statut === 1){
-            console.log("User successful log in");
-        }
-        else if (response.statut === 0){
-            console.log("Erreur")
-        }
-})          
+    if (response.status === 200) {
+        console.log("User successful log in");
+        window.location.href = 'todolist.html';
+    } else if (response.status === 400 || response.status === 401) {
+        console.log("Username or Password incorrect !");
+        feedback.textContent = "Username or Password incorrect !";
+        feedback.style.color = "red";
+        feedback.style.display = "block";
+    }
+})
 .catch(error => console.log(error));
-         
-
-
-

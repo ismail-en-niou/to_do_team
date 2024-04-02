@@ -31,8 +31,13 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
+<<<<<<< HEAD
     registerForm = document.getElementById("sub");
     registerForm.addEventListener("click", async (e)=> {
+=======
+    const registerForm = document.getElementById("registerForm");
+    registerForm.addEventListener("submit", async function(e) {
+>>>>>>> 033443fb2ff1df6d1a136bbfdd0384f01befebea
         e.preventDefault();
         // check if the input are not empty
         if (!username.value || !password.value || !confirmPassword.value) {
@@ -56,8 +61,9 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        error.innerHTML = "";
+        error.innerHTML = " ";
 
+<<<<<<< HEAD
         const response = await fetch('https://doda-o6sz.onrender.com/register', {
             method: 'POST',
             headers: {
@@ -68,10 +74,67 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const responseData = await response.json();
         console.log(responseData);
+=======
+        //const registerData = new FormData(registerForm);
+        //const data = Object.fromEntries(registerData);
 
+        // console.log(data);
 
+     /* fetch('https://doda-o6sz.onrender.com/register', {
+            method: 'POST',
+                body: JSON.stringify({
+                    username,
+                    password
+                }),
+                headers: {
+                    'content-type': 'application/json'
+                }
+        }).then((response) => response.json()).then(result => console.log(result)).catch(err => console.log(err))  */
 
+        // Clear any previous errors
+
+        //check if the username already exists
+        const response = await fetch('https://doda-o6sz.onrender.com/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: username.value,
+                password: password.value
+            })
+        });
+
+        const responseData = await response.json();
+>>>>>>> 033443fb2ff1df6d1a136bbfdd0384f01befebea
+
+        console.log(responseData);
+
+        if (responseData.status === 1) {
+            error.innerHTML = "Username already exists.";
+        } else {
+            // store username and password in db
+            const utilisateurRef = firebase.database().ref('usersRef');
+            const utilisateur = {
+                username: username.value,
+                password: password.value
+            };
+
+            utilisateurRef.push(utilisateur)
+            .then(() => {
+                console.log("Registration successful !");
+                window.location.href = 'login.html';
+            })
+            .catch(error => {
+                console.error("Error adding data to Firebase database:", error);
+                error.innerHTML = "An error occurred during registration!";
+            }); 
+        }
     });
+<<<<<<< HEAD
 })
 
 
+=======
+})
+>>>>>>> 033443fb2ff1df6d1a136bbfdd0384f01befebea

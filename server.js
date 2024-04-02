@@ -30,18 +30,18 @@ expressApp.post("/register", async (req, res) => {
         const snapshot = await get(usersRef);
         
         if (snapshot.exists()) {
-            res.status(400).send({ statut: "1", message: "User already exists" });
+            res.status(400).send({ status: "1", message: "User already exists" });
         } else {
             const hashedPassword = await bcrypt.hash(password, 10);
             await set(ref(db, `/${user}`), {
                 user,
                 password: hashedPassword
             });   
-            res.status(201).send({ statut: "0", message: "User registered successfully" });
+            res.status(201).send({ status: "0", message: "User registered successfully" });
         }
     } catch (error) {
         console.error("Error registering user:", error);
-        res.status(500).send({ statut: "1", message: "Internal Server Error" });
+        res.status(500).send({ status: "1", message: "Internal Server Error" });
     }
 });
 
@@ -52,7 +52,7 @@ expressApp.post("/login", async (req, res) => {
         const userSnapshot = await get(userRef);
         
         if (!userSnapshot.exists()) {
-            return res.status(400).send({ statut: "1", message: "User not found" });
+            return res.status(400).send({ status: "1", message: "User not found" });
         }
         const userData = userSnapshot.val();
         const hashedPassword = userData.password;
@@ -64,10 +64,10 @@ expressApp.post("/login", async (req, res) => {
                 message: "Incorrect password"
             });
         }
-        res.status(200).send({ statut: "0", message: "Login successful" });
+        res.status(200).send({ status: "0", message: "Login successful" });
     } catch (error) {
         console.error("Error logging in user:", error);
-        res.status(500).send({ statut: "1", message: "Internal Server Error" });
+        res.status(500).send({ status: "1", message: "Internal Server Error" });
     }
 });
 
