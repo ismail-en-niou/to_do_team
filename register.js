@@ -31,8 +31,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    registerForm = document.getElementById("registerForm");
-    registerForm.addEventListener("submit", function(e) {
+    const registerForm = document.getElementById("registerForm");
+    registerForm.addEventListener("submit", async function(e) {
         e.preventDefault();
         // check if the input are not empty
         if (!username.value || !password.value || !confirmPassword.value) {
@@ -93,9 +93,9 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        error.innerHTML = "";
+        error.innerHTML = " ";
 
-        const registerData = new FormData(registerForm);
+        //const registerData = new FormData(registerForm);
         //const data = Object.fromEntries(registerData);
 
         // console.log(data);
@@ -111,35 +111,43 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
         }).then((response) => response.json()).then(result => console.log(result)).catch(err => console.log(err))  */
 
-        fetch('https://doda-o6sz.onrender.com/register', {
+        // Clear any previous errors
+
+        //check if the username already exists
+        const response = await fetch('https://doda-o6sz.onrender.com/register', {
             method: 'POST',
-            body: JSON.stringify({
-                username,
-                password
-            }),
             headers: {
-                'content-type': 'application/json'
-            }
-        }).then(async (response) => {
-            const data = await response.json();
-            const statusData = data.statut;
-            const messageData = data.message;
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: username.value,
+                password: password.value
+            })
+        });
 
-            console.log(statusData);
-            console.log(messageData);
+        const responseData = await response.json();
 
-            if (data.statut == 1){
-                error.innerHTML = "Username already exists."
-            } else {
-                alert("Registration successful !");
+        console.log(responseData);
+
+        if (responseData.status === 1) {
+            error.innerHTML = "Username already exists.";
+        } else {
+            // store username and password in db
+            const utilisateurRef = firebase.database().ref('usersRef');
+            const utilisateur = {
+                username: username.value,
+                password: password.value
+            };
+
+            utilisateurRef.push(utilisateur)
+            .then(() => {
+                console.log("Registration successful !");
                 window.location.href = 'login.html';
-            }
-            //console.log(response);
-
-        }).catch(err => console.log(err))
-
-
-
-
+            })
+            .catch(error => {
+                console.error("Error adding data to Firebase database:", error);
+                error.innerHTML = "An error occurred during registration!";
+            }); 
+        }
     });
-});
+})
