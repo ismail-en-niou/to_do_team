@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const username = document.querySelector("#username");
     const password = document.querySelector("#password");
     const confirmPassword = document.querySelector("#cpassword");
@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const visibilityToggle1 = document.getElementById("passwordVisibilityToggle1");
     const visibilityToggle2 = document.getElementById("passwordVisibilityToggle2");
 
-    visibilityToggle1.addEventListener("click", function() {
+    visibilityToggle1.addEventListener("click", function () {
         if (password.type === "password") {
             password.type = "text";
             visibilityToggle1.classList.remove("fa-eye-slash");
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    visibilityToggle2.addEventListener("click", function() {
+    visibilityToggle2.addEventListener("click", function () {
         if (confirmPassword.type === "password") {
             confirmPassword.type = "text";
             visibilityToggle2.classList.remove("fa-eye-slash");
@@ -31,13 +31,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-<<<<<<< HEAD
     registerForm = document.getElementById("sub");
-    registerForm.addEventListener("click", async (e)=> {
-=======
-    const registerForm = document.getElementById("registerForm");
-    registerForm.addEventListener("submit", async function(e) {
->>>>>>> 033443fb2ff1df6d1a136bbfdd0384f01befebea
+    registerForm.addEventListener("click", async (e) => {
         e.preventDefault();
         // check if the input are not empty
         if (!username.value || !password.value || !confirmPassword.value) {
@@ -63,78 +58,26 @@ document.addEventListener("DOMContentLoaded", function() {
 
         error.innerHTML = " ";
 
-<<<<<<< HEAD
         const response = await fetch('https://doda-o6sz.onrender.com/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ user: username.value , password: password.value })
+            body: JSON.stringify({ user: username.value, password: password.value })
         });
 
         const responseData = await response.json();
         console.log(responseData);
-=======
-        //const registerData = new FormData(registerForm);
-        //const data = Object.fromEntries(registerData);
-
-        // console.log(data);
-
-     /* fetch('https://doda-o6sz.onrender.com/register', {
-            method: 'POST',
-                body: JSON.stringify({
-                    username,
-                    password
-                }),
-                headers: {
-                    'content-type': 'application/json'
-                }
-        }).then((response) => response.json()).then(result => console.log(result)).catch(err => console.log(err))  */
-
-        // Clear any previous errors
-
-        //check if the username already exists
-        const response = await fetch('https://doda-o6sz.onrender.com/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: username.value,
-                password: password.value
-            })
-        });
-
-        const responseData = await response.json();
->>>>>>> 033443fb2ff1df6d1a136bbfdd0384f01befebea
 
         console.log(responseData);
 
-        if (responseData.status === 1) {
+        if (responseData.status == 1) {
             error.innerHTML = "Username already exists.";
-        } else {
-            // store username and password in db
-            const utilisateurRef = firebase.database().ref('usersRef');
-            const utilisateur = {
-                username: username.value,
-                password: password.value
-            };
+        } 
+        if (responseData.status == 0) {
 
-            utilisateurRef.push(utilisateur)
-            .then(() => {
-                console.log("Registration successful !");
-                window.location.href = 'login.html';
-            })
-            .catch(error => {
-                console.error("Error adding data to Firebase database:", error);
-                error.innerHTML = "An error occurred during registration!";
-            }); 
+            console.log("Registration successful !");
+            window.location.href = 'login.html';
         }
     });
-<<<<<<< HEAD
 })
-
-
-=======
-})
->>>>>>> 033443fb2ff1df6d1a136bbfdd0384f01befebea
