@@ -19,3 +19,25 @@ function removeTask(input) {
     taskList = li.parentElement;
     taskList.removeChild(li);   
 }
+// save tasks in data base
+const data = {
+  task : newTask.value.trim()
+};
+fetch('https://doda-o6sz.onrender.com/todos',{
+  method : 'POST', 
+  headers: {
+    'Content-type': 'application/json'
+  },
+  body : JSON.stringify(data)
+})
+.then(response => {
+  if(response.ok){
+    console.log('La tache a bien enregistree');
+  }
+  else{
+    console.error("Erreur lors de l'enregistrement de la tache :", response.status);
+  }
+})
+.catch(error => 
+  {console.log("Erreur lors de la requete :", error)
+});
