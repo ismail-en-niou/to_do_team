@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
     const visibilityToggle1 = document.getElementById("passwordVisibilityToggle1");
     const visibilityToggle2 = document.getElementById("passwordVisibilityToggle2");
-
     visibilityToggle1.addEventListener("click", function () {
         if (password.type === "password") {
             password.type = "text";
@@ -18,7 +17,6 @@ document.addEventListener("DOMContentLoaded", function () {
             visibilityToggle1.classList.add("fa-eye-slash");
         }
     });
-
     visibilityToggle2.addEventListener("click", function () {
         if (confirmPassword.type === "password") {
             confirmPassword.type = "text";
@@ -30,11 +28,9 @@ document.addEventListener("DOMContentLoaded", function () {
             visibilityToggle2.classList.add("fa-eye-slash");
         }
     });
-
     registerForm = document.getElementById("sub");
     registerForm.addEventListener("click", async (e) => {
         e.preventDefault();
-        // check if the input are not empty
         if (!username.value || !password.value || !confirmPassword.value) {
             error.innerHTML = "Username or password are not correct!";
             username.value = '';
@@ -48,16 +44,12 @@ document.addEventListener("DOMContentLoaded", function () {
             confirmPassword.value = '';
             return;
         }
-
-        // check if the password and confirmpassword are the same
         if (password.value !== confirmPassword.value) {
             error.innerHTML = "Passwords do not match.";
             confirmPassword.value = '';
             return;
         }
-
         error.innerHTML = " ";
-
         const response = await fetch('https://doda-o6sz.onrender.com/register', {
             method: 'POST',
             headers: {
@@ -65,12 +57,8 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             body: JSON.stringify({ user: username.value, password: password.value })
         });
-
         const responseData = await response.json();
         console.log(responseData);
-
-        console.log(responseData);
-
         if (responseData.status == 1) {
             error.innerHTML = "Username already exists.";
         } 
