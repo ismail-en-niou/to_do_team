@@ -43,9 +43,10 @@ fetch("https://doda-o6sz.onrender.com/login", {
     body: JSON.stringify(data)
 })
 .then(response => {
-    if (response.status === 200) {
+    console.log(response)
+    if (response.status === 1) {
         console.log("User successful log in");
-        window.location.href = 'todolist.html';
+       
     } else if (response.status === 400 || response.status === 401) {
         console.log("Username or Password incorrect !");
         feedback.textContent = "Username or Password incorrect !";

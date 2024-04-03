@@ -6,7 +6,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
     const visibilityToggle1 = document.getElementById("passwordVisibilityToggle1");
     const visibilityToggle2 = document.getElementById("passwordVisibilityToggle2");
+<<<<<<< Updated upstream
     visibilityToggle1.addEventListener("click", function () {
+=======
+    visibilityToggle1.addEventListener("click", function() {
+>>>>>>> Stashed changes
         if (password.type === "password") {
             password.type = "text";
             visibilityToggle1.classList.remove("fa-eye-slash");
