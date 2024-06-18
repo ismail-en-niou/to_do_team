@@ -3,7 +3,6 @@ const { getDatabase, ref, get, set } = require("firebase/database");
 const bcrypt = require('bcrypt');
 const express = require("express");
 const cors = require("cors");
-
 const firebaseConfig = {
   apiKey: "AIzaSyCrJsBOKV-pcUUGL5I5etcxd9WNDMFVTPY",
   authDomain: "my-data-base-54f9a.firebaseapp.com",
@@ -14,15 +13,11 @@ const firebaseConfig = {
   appId: "1:268612316568:web:0f98c5a375710722a1cfed",
   measurementId: "G-VS4P08TY15"
 };
-
 const app = initializeApp(firebaseConfig);
 const db = getDatabase();
 const expressApp = express();
-
-
 expressApp.use(cors());
 expressApp.use(express.json());
-
 expressApp.post("/register", async (req, res) => {
     try {
         const { user, password } = req.body;
@@ -44,7 +39,6 @@ expressApp.post("/register", async (req, res) => {
         res.status(500).send({ status: "1", message: "Internal Server Error" });
     }
 });
-
 expressApp.post("/login", async (req, res) => {
     try {
         const { user, password } = req.body;
@@ -70,8 +64,6 @@ expressApp.post("/login", async (req, res) => {
         res.status(500).send({ status: "1", message: "Internal Server Error" });
     }
 });
-
 expressApp.listen(3000, () => {
     console.log("Server is running on port 3000");
 });
-
